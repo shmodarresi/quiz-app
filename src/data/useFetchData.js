@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react';
+import api from '../api/api';
 
 const useFetchData = (url) => {
     const [data,setData] = useState([]);
@@ -22,7 +23,7 @@ const useFetchData = (url) => {
           };
           fetchData();
     },[url]);
-    return {loading, data};
+    return [loading, data];
 
 };
 

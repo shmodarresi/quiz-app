@@ -1,11 +1,54 @@
 @import '~bootstrap/scss/bootstrap.scss';
 
+.align-C{
+    text-align: center;
+}
+
 // Main container
 .home-container{
-    text-align: center;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 10;
+    @extend .align-C;
     @extend .py-5;
 }
 
 .main-header{
     box-shadow: 0 -1px 3px rgba(0,0,0,0.5);
+}
+
+
+// Question Page
+
+ul{
+    list-style-type: none;
+}
+
+.qItem{
+    margin-bottom: 1rem;
+    padding-top: 0.5rem;
+    font-weight: bold;
+    ul{
+        padding:0;
+
+        li{
+            cursor: pointer;
+            padding: 0.3rem 0;
+        }
+    }
+}
+
+li:not(.qItem){
+    font-weight: normal;
+}
+
+.isWrong{
+    color:red;
+}
+.isCorrect{
+    color: green;
+}
+.disabled{
+    pointer-events: none;
 }
