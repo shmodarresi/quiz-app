@@ -1,54 +1,117 @@
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~font-awesome/scss/font-awesome.scss";
+@import "mixin";
 
-.align-C{
-    text-align: center;
+$red-color: red;
+$green-color: #07de07;
+
+.align-C {
+  text-align: center;
 }
 
 // Main container
-.home-container{
-    position: sticky;
-    top: 0;
-    background-color: #fff;
-    z-index: 10;
-    @extend .align-C;
-    @extend .py-5;
+.home-container {
+  @extend .align-C;
+  @extend .py-5;
 }
 
-.main-header{
-    box-shadow: 0 -1px 3px rgba(0,0,0,0.5);
+.main-header {
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 10;
 }
-
 
 // Question Page
 
-ul{
-    list-style-type: none;
+ul {
+  list-style-type: none;
 }
 
-.qItem{
-    margin-bottom: 1rem;
-    padding-top: 0.5rem;
-    font-weight: bold;
-    ul{
-        padding:0;
+.items {
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  font-weight: bold;
+  ul {
+    padding: 0;
 
-        li{
-            cursor: pointer;
-            padding: 0.3rem 0;
+    li {
+      cursor: pointer;
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      z-index: 1;
+
+      > span {
+        @extend .disabled;
+      }
+
+      .rounded-circle {
+        width: 16px;
+        height: 16px;
+        border: solid 2px rgb(140, 140, 140);
+        display: inline-block;
+        position: relative;
+      }
+
+      &.isCorrect {
+        .rounded-circle {
+          border-color: $green-color;
+          background-color: $green-color;
+
+          &:before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 5px;
+            border: solid 2px #fff;
+            border-top: none;
+            border-right: none;
+            top: 2px;
+            left: 1px;
+            @include transform(rotate(-45deg));
+          }
         }
+      }
+
+      &.isWrong {
+        .rounded-circle {
+          border-color: $red-color;
+          background-color: $red-color;
+
+          &:before,
+          &:after {
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 2px;
+            background-color: #fff;
+            top: 5px;
+          }
+
+          &:before {
+            @include transform(rotate(-45deg));
+          }
+          &:after {
+            @include transform(rotate(45deg));
+          }
+        }
+      }
     }
+  }
 }
 
-li:not(.qItem){
-    font-weight: normal;
+li:not(.items) {
+  font-weight: normal;
 }
 
-.isWrong{
-    color:red;
+.isWrong {
+  color: $red-color;
 }
-.isCorrect{
-    color: green;
+.isCorrect {
+  color: $green-color;
 }
-.disabled{
-    pointer-events: none;
+.disabled {
+  pointer-events: none;
 }

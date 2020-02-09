@@ -18,10 +18,13 @@ const QuestionList = ({ userAnswers, selectAnswer }) => {
         setScore(score + s);
     }
 
+    let selected = 0;
     const answers = [];
     const answerFn = (index, answer) => {
+        selected += 1;
         answers[index] = answer;
-        if (answers.length === list.length) {
+        debugger;
+        if (selected === list.length) {
 
             selectAnswer(answers);
             setIsComplete(true);

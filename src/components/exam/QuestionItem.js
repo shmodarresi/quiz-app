@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 
 
 const QuestionItem = ({item,selectAnswer,score}) => {
-        
-    const [selectedAnswer, setSelectedAnswer] = useState('');
+
     const [isComplete , setIsComplete] = useState('');
     const [isCorrect , setIsCorrect] = useState('');
 
-    console.log(selectedAnswer);
-      const answers = () => {
+    const answers = () => {
         var array = [...item.incorrect_answers , item.correct_answer];
         return array;
-      }
+    }
       
     const selectFn = (answer , e) => {
 
@@ -25,20 +23,20 @@ const QuestionItem = ({item,selectAnswer,score}) => {
         }
 
         setIsComplete(true);
-        setSelectedAnswer(answer);
         selectAnswer(answer);
     }
 
     return (
-        <li className='qItem'>
+        <li className='items'>
             <div dangerouslySetInnerHTML={{__html: item.question}}></div>
                 <ul className={isComplete?'disabled' : ''}>
                     {answers().map(a => {
                         return(
                         <li  className={item.correct_answer === a? isCorrect :''}
-                            dangerouslySetInnerHTML={{__html: a}} 
                             key={answers().indexOf(a)}
                             onClick={(e) => selectFn(a,e)} >
+                            <span className="rounded-circle mr-1"></span>
+                            <span dangerouslySetInnerHTML={{__html: a}}></span>
                         </li>
                         )
                     })}
