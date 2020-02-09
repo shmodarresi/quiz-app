@@ -10,12 +10,12 @@ const App = () => {
   return (
     <div className="container-fluid">
         <Navbar />
-            <Router>
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/exam" exact component={QuestionList} />
-                </Switch>
-            </Router>
+        <Router>
+            <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/exam" exact component={QuestionList} />
+            </Switch>
+        </Router>
     </div>
   );
 }
