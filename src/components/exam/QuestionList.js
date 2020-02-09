@@ -10,32 +10,32 @@ import Score from './Score';
 
 const QuestionList = ({ userAnswers, selectAnswer }) => {
 
-    const [score, setScore] = useState(0);
+    const [finalScore, setFinalScore] = useState(0);
     const [isComplete, setIsComplete] = useState(false);
     const [loading, list = []]  = useFetchData('/api.php?amount=10');
 
+    var score = 0;
     const setQScore = (s) => {
-        setScore(score + s);
+        score = score + s;
     }
 
-    let selected = 0;
+    var selected = 0;
     const answers = [];
     const answerFn = (index, answer) => {
         selected += 1;
         answers[index] = answer;
-        debugger;
         if (selected === list.length) {
 
             selectAnswer(answers);
             setIsComplete(true);
-
+            setFinalScore(score);
         }
 
     };
 
     if (isComplete) {
 
-        return <Score total={list.length} finalScore={score} />;
+        return <Score total={list.length} finalScore={finalScore} />;
 
     } else if(loading) {
 
