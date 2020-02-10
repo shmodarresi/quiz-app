@@ -1,4 +1,5 @@
 import React ,{useState , useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import logo from '../logo.webp';
 
 const Navbar = () => {
@@ -11,7 +12,7 @@ const Navbar = () => {
     })
     return (
         <header className="main-header row p-2">
-            <img src={logo} alt="deevio" />
+            <Link to='/'><img src={logo} alt="deevio" /></Link>
             <span className="ml-auto">{time.toLocaleTimeString()}</span>
         </header>
     );

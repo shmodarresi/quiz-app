@@ -9,8 +9,9 @@ import QuestionList from './components/exam/QuestionList';
 const App = () => {
   return (
     <div className="container-fluid">
-        <Navbar />
+        
         <Router>
+          <Navbar />
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/exam" exact component={QuestionList} />
