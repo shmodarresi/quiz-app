@@ -1,9 +1,8 @@
 @import "~bootstrap/scss/bootstrap.scss";
-@import "~font-awesome/scss/font-awesome.scss";
-@import "mixin";
+@import "./mixin";
 
 $red-color: red;
-$green-color: #07de07;
+$green-color: #0baf0b;
 
 .align-C {
   text-align: center;
@@ -21,89 +20,87 @@ $green-color: #07de07;
   top: 0;
   background-color: #fff;
   z-index: 10;
+  align-items: center;
 }
 
 // Question Page
 
-ul {
+ul,
+ol {
   list-style-type: none;
+  padding: 0;
 }
 
-.items {
+.card {
   margin-bottom: 1rem;
   padding-top: 0.5rem;
-  font-weight: bold;
-  ul {
-    padding: 0;
+  > div {
+    font-weight: bold;
+  }
 
-    li {
-      cursor: pointer;
-      padding: 0.3rem 0;
-      display: flex;
-      align-items: center;
-      z-index: 1;
+  li {
+    cursor: pointer;
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
 
-      > span {
-        @extend .disabled;
-      }
+    > span {
+      @extend .disabled;
+    }
 
+    .rounded-circle {
+      width: 16px;
+      height: 16px;
+      border: solid 2px rgb(140, 140, 140);
+      display: inline-block;
+      position: relative;
+    }
+
+    &.isCorrect {
       .rounded-circle {
-        width: 16px;
-        height: 16px;
-        border: solid 2px rgb(140, 140, 140);
-        display: inline-block;
-        position: relative;
-      }
+        border-color: $green-color;
+        background-color: $green-color;
 
-      &.isCorrect {
-        .rounded-circle {
-          border-color: $green-color;
-          background-color: $green-color;
-
-          &:before {
-            content: "";
-            position: absolute;
-            width: 10px;
-            height: 5px;
-            border: solid 2px #fff;
-            border-top: none;
-            border-right: none;
-            top: 2px;
-            left: 1px;
-            @include transform(rotate(-45deg));
-          }
+        &:before {
+          content: "";
+          position: absolute;
+          width: 10px;
+          height: 5px;
+          border: solid 2px #fff;
+          border-top: none;
+          border-right: none;
+          top: 2px;
+          left: 1px;
+          @include transform(rotate(-45deg));
         }
       }
+    }
 
-      &.isWrong {
-        .rounded-circle {
-          border-color: $red-color;
-          background-color: $red-color;
+    &.isWrong {
+      .rounded-circle {
+        border-color: $red-color;
+        background-color: $red-color;
 
-          &:before,
-          &:after {
-            content: "";
-            position: absolute;
-            width: 12px;
-            height: 2px;
-            background-color: #fff;
-            top: 5px;
-          }
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          width: 12px;
+          height: 2px;
+          background-color: #fff;
+          top: 5px;
+        }
 
-          &:before {
-            @include transform(rotate(-45deg));
-          }
-          &:after {
-            @include transform(rotate(45deg));
-          }
+        &:before {
+          @include transform(rotate(-45deg));
+        }
+        &:after {
+          @include transform(rotate(45deg));
         }
       }
     }
   }
-}
-
-li:not(.items) {
-  font-weight: normal;
 }
 
 .isWrong {

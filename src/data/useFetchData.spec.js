@@ -23,13 +23,3 @@ test("useFetch performs GET request", async () => {
   expect(result.current.loading).toBeFalsy();
 });
 
-
-// test('returns proper initial states', () => {
-//   const url = 'https://opentdb.com/api.php?amount=10';
-//   const { result } = renderHook(() =>
-//   useFetchData({ url })
-//   );
-
-//   expect(result.current.loading).toBeFalsy();
-//   expect(result.current.data.length).toEqual(10);
-// });

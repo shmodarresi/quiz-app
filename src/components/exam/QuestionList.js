@@ -44,7 +44,7 @@ const QuestionList = ({ userAnswers, selectAnswer }) => {
     } else{
         return (
             <div>
-                <h1 className="mb-2">Question List:</h1>
+                <h3 className="my-3">Question List:</h3>
                 <ol>{list.map((q, i) => (
                     <QuestionItem
                         item={q}

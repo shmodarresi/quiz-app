@@ -2,7 +2,7 @@ import React from 'react';
 
 const Score = ({total , finalScore}) => {
 
-    var smile = finalScore < total-3?<i className="fa fa-frown"></i>:<i className="fa fa-smile-wink"></i> ;
+    var smile = finalScore < total-3?':(':':)' ;
     
 
     return (

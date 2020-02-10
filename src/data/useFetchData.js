@@ -23,7 +23,11 @@ const useFetchData = (url) => {
           };
           fetchData();
     },[url]);
+
     return [loading, data];
+
+    // For Test
+    //return{loading,data};
 
 };
 

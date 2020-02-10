@@ -6,11 +6,14 @@ const QuestionItem = ({item,selectAnswer,score}) => {
     const [isComplete , setIsComplete] = useState('');
     const [isCorrect , setIsCorrect] = useState('');
 
+
+    //create array of correct answer and incorrect answer
     const answers = () => {
         var array = [...item.incorrect_answers , item.correct_answer];
         return array;
     }
-      
+    
+    //calculate score and send it to Quest list component
     const selectFn = (answer , e) => {
 
         if(answer === item.correct_answer){
@@ -27,9 +30,10 @@ const QuestionItem = ({item,selectAnswer,score}) => {
     }
 
     return (
-        <li className='items'>
+        <li className='card p-3'>
             <div dangerouslySetInnerHTML={{__html: item.question}}></div>
-                <ul className={isComplete?'disabled' : ''}>
+                {/* class disabled = doesn't let to answer the question more than one time*/}
+                <ul className={isComplete?'disabled' : ''}> 
                     {answers().map(a => {
                         return(
                         <li  className={item.correct_answer === a? isCorrect :''}
