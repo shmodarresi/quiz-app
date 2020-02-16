@@ -1,10 +1,9 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {Routes} from './routes/Routes';
 
 import './assets/style.scss';
 import Navbar from './layout/Navbar';
-import Home from './components/Home';
-import QuestionList from './components/exam/QuestionList';
 
 const App = () => {
   return (
@@ -13,8 +12,9 @@ const App = () => {
         <Router>
           <Navbar />
             <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/exam" exact component={QuestionList} />
+              {
+                Routes.map(r => <Route path={r.path} exact={r.exact} component={r.component} />)
+              }
             </Switch>
         </Router>
     </div>
