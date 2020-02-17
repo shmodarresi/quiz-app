@@ -24,13 +24,13 @@ const Score = ({ userScores }) => {
     }, [userScores]);
 
     var smile = fScore < (userScores.length) - 3 ? ':(' : ':)';
-    return (
-        <div className="align-C">
-            <h1 className="mt-5 mb-3">Your Score Is {smile}</h1>
-            <h3>{fScore} / {userScores.length}</h3>
-
-        </div>
-    );
+        return (
+            <div className="align-C">
+                <h1 className="mt-5 mb-3">Your Score Is {smile}</h1>
+                <h3>{fScore} / {userScores.length}</h3>
+    
+            </div>
+        );
 };
 
 
