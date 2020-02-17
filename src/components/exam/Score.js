@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 
-const Score = ({total , finalScore}) => {
+const Score = ({userScores}) => {
 
-    var smile = finalScore < total-3?':(':':)' ;
+
+    const [fScore,setFScore]=useState(0);
+
+    useEffect(() => {
+        var s = userScores.reduce((a,b)=> {
+            (a[b.score] = a[b.score] || []).push(b);
+        return a;
+        },{});
+
+        setFScore(Object.values(s[1]).length) ;
+
+    },[userScores]);
     
+    var smile = fScore < (userScores.length)-3?':(':':)' ;
 
     return (
         <div className="align-C">
             <h1 className="mt-5 mb-3">Your Score Is {smile}</h1>
-            <h3>{finalScore} / {total}</h3>
+            <h3>{fScore} / {userScores.length}</h3>
             
         </div>
     );
 };
 
-export default Score;
+
+const mapStateToProps = state => {
+    return { userScores: state.score.scores };
+}
+
+export default connect(mapStateToProps)(Score);

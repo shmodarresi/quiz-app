@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { selectAnswer as selectAnswerAction } from '../../actions';
@@ -6,53 +7,41 @@ import { selectAnswer as selectAnswerAction } from '../../actions';
 import useFetchData from '../../data/useFetchData';
 import QuestionItem from './QuestionItem'
 import Spinner from '../../layout/Spinner';
-import Score from './Score';
 
-const QuestionList = ({ userAnswers, selectAnswer }) => {
+const QuestionList = ({ userScores, selectAnswer }) => {
 
-    const [finalScore, setFinalScore] = useState(0);
-    const [isComplete, setIsComplete] = useState(false);
-    const [loading, list = []]  = useFetchData('/api.php?amount=10');
+    const [loading, list = []] = useFetchData('/api.php?amount=10');
+    const [question, setQuestion] = useState({});
+    let [currentQ, setCurrentQ] = useState(0);
+    const history = useHistory();
 
-    var score = 0;
-    const setQScore = (s) => {
-        score = score + s;
-    }
+    useEffect(() => {
+        setQuestion(list[currentQ]);
+    }, [list, currentQ]);
 
-    var selected = 0;
-    const answers = [];
-    const answerFn = (index, answer) => {
-        selected += 1;
-        answers[index] = answer;
-        if (selected === list.length) {
 
-            selectAnswer(answers);
-            setIsComplete(true);
-            setFinalScore(score);
+    const answerFn = (s) => {
+        selectAnswer(s);
+
+        if (currentQ === list.length - 1) {
+            history.push('/score');
         }
 
+        setCurrentQ(currentQ += 1);
     };
 
-    if (isComplete) {
-
-        return <Score total={list.length} finalScore={finalScore} />;
-
-    } else if(loading) {
+    if (loading) {
 
         return <Spinner />;
 
-    } else{
+    } else {
         return (
             <div>
-                <h3 className="my-3">Question List:</h3>
-                <ol>{list.map((q, i) => (
+                <h5 className="my-3">Question {currentQ + 1} / {list.length}:</h5>
+                <ol>
                     <QuestionItem
-                        item={q}
-                        key={i}
-                        score={setQScore}
-                        selectAnswer={(a) => answerFn(i, a)}/>
-                )
-                )}
+                        item={question}
+                        selectAnswer={(s) => answerFn(s)} />
                 </ol>
             </div>
         );
@@ -61,13 +50,13 @@ const QuestionList = ({ userAnswers, selectAnswer }) => {
 
 
 const mapStateToProps = store => {
-    return { userAnswers: store.answer };
+    return { userScores: store.score };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        selectAnswer: (index, answer) => {
-            dispatch(selectAnswerAction(index, answer));
+        selectAnswer: (index, score) => {
+            dispatch(selectAnswerAction(index, score));
         }
     }
 }

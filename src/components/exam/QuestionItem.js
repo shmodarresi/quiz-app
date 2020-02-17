@@ -1,32 +1,44 @@
 import React, { useState } from 'react';
+//import Score from './Score';
 
 
-const QuestionItem = ({item,selectAnswer,score}) => {
+const QuestionItem = ({item,selectAnswer}) => {
 
     const [isComplete , setIsComplete] = useState('');
     const [isCorrect , setIsCorrect] = useState('');
-
+    const [userAnswer, setUserAnswer] = useState('');
 
     //create array of correct answer and incorrect answer
     const answers = () => {
-        var array = [...item.incorrect_answers , item.correct_answer];
+        var array = [...item.incorrect_answers, item.correct_answer];
         return array;
     }
     
     //calculate score and send it to Quest list component
-    const selectFn = (answer , e) => {
-
+    const selectFn = (answer) => {
+        var s = 0;
+        setUserAnswer(answer);
+        
         if(answer === item.correct_answer){
-            e.target.className = 'isCorrect';
-            score(1);
+            item.ans = 'isCorrect';
+            s = 1;
         }else{
-            e.target.className = 'isWrong';
+            item.ans = 'isWrong';
             setIsCorrect('isCorrect');
-            score(0);
         }
-
+        
         setIsComplete(true);
-        selectAnswer(answer);
+        // selectAnswer(answer,s);
+        // score(s);
+
+        setTimeout(()=>{
+            selectAnswer(s);
+            setIsComplete(false);
+            setIsCorrect('');
+            setUserAnswer('');
+            delete item.ans;
+        } , 300);
+
     }
 
     return (
@@ -36,9 +48,9 @@ const QuestionItem = ({item,selectAnswer,score}) => {
                 <ul className={isComplete?'disabled' : ''}> 
                     {answers().map(a => {
                         return(
-                        <li  className={item.correct_answer === a? isCorrect :''}
+                        <li className={userAnswer === a ? item.ans : (item.correct_answer === a? isCorrect : '')}
                             key={answers().indexOf(a)}
-                            onClick={(e) => selectFn(a,e)} >
+                            onClick={() => selectFn(a)} >
                             <span className="rounded-circle mr-1"></span>
                             <span dangerouslySetInnerHTML={{__html: a}}></span>
                         </li>

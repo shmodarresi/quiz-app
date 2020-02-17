@@ -13,7 +13,7 @@ const App = () => {
           <Navbar />
             <Switch>
               {
-                Routes.map(r => <Route path={r.path} exact={r.exact} component={r.component} />)
+                Routes.map((r,i) => <Route path={r.path} exact={r.exact} component={r.component} key={i}/>)
               }
             </Switch>
         </Router>

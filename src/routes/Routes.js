@@ -1,5 +1,6 @@
 import Home from '../components/Home';
 import QuestionList from '../components/exam/QuestionList';
+import Score from '../components/exam/Score';
 
 export const Routes = [
     {
@@ -10,6 +11,11 @@ export const Routes = [
     {
         path:'/exam',
         component: QuestionList,
+        exact: true
+    },
+    {
+        path:'/score',
+        component: Score,
         exact: true
     }
 ]

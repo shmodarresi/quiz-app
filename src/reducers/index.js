@@ -4,28 +4,37 @@ import { ANSWER_SELECTED} from './../actions';
 
 /**
  * 
- * store = {
- *     
- *      answers : {
- *          questionIndex: answer
+ * state = {
+ *      scores : {
+ *          questionIndex: score
  *      }
  * }
+ * 
+ * 
  */
 
-export const appReducer = (store = {answers: {} } , action) =>{
+export const appReducer = (state = {scores: []} , action) =>{
     switch(action.type){
         case ANSWER_SELECTED:{
-            const newStore = Object.assign({}, store);
-            newStore.answers = action.payload.answers;
-            return newStore;    
+            const newState = Object.assign({}, state ,  {
+                scores: [
+                  ...state.scores,
+                  {
+                    score: action.score
+                  }
+                ]
+              });
+            //newStore.scores = action.score;
+            //debugger;
+            return newState;    
         }
         default:
-            return store;
+            return state;
 
     }
 }
 
 
 export default combineReducers ({
-    answer: appReducer
+    score: appReducer
 });
